@@ -126,6 +126,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
+    public void OnJoinRandomRoomClicked()
+    {
+        ActivatePanel(joinRandomRoomPanel);
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        string roomName = "Room " + Random.Range(1000, 10000);
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 20;
+
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
+    }
+
     #endregion
 
     #region PUN Callbacks
