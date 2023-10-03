@@ -58,6 +58,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             ActivatePanel(loginUiPanel);
 
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
         
         void Update()
@@ -132,13 +133,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRandomRoom();
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public void OnStartGameButtonClicked()
     {
-        string roomName = "Room " + Random.Range(1000, 10000);
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 20;
-
-        PhotonNetwork.CreateRoom(roomName, roomOptions);
+        PhotonNetwork.LoadLevel("GameScene");
     }
 
     #endregion
@@ -276,6 +273,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         playerListGameObjects.Clear();
         playerListGameObjects = null;
         ActivatePanel(gameOptionsPanel);
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        string roomName = "Room " + Random.Range(1000, 10000);
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 20;
+
+        PhotonNetwork.CreateRoom(roomName, roomOptions);
     }
 
     #endregion
