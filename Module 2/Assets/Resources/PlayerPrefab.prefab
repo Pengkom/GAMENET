@@ -1681,6 +1681,9 @@ GameObject:
   - component: {fileID: 1073425437}
   - component: {fileID: 4001919194335439766}
   - component: {fileID: 1073425438}
+  - component: {fileID: 1977405444}
+  - component: {fileID: 254093935}
+  - component: {fileID: 1676328243}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -1753,8 +1756,10 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 1977405444}
+  - {fileID: 1676328243}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1772,6 +1777,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsModel: {fileID: 5937584653836302844}
   nonFpsModel: {fileID: 8040688012230469689}
+  playerUIPrefab: {fileID: 7783642138856008572, guid: a66ebeec71b0a2247a8c855de62518da, type: 3}
+  playerMovementController: {fileID: 0}
+  fpsCamera: {fileID: 8907369183236730291}
+  fpsAvatar: {fileID: 9000000, guid: 6cae2f82a0a62ff4ab9be3eeeda19688, type: 3}
+  nonFPSAvatar: {fileID: 9000000, guid: 5a8f68e873d1f9b47b28169aecdb8b8e, type: 3}
 --- !u!114 &1073425437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1786,6 +1796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
   fixedTouchField: {fileID: 0}
+  rigidbodyFirstPersonController: {fileID: 4001919194335439766}
 --- !u!114 &4001919194335439766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,8 +1871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e60a97f2c87ae41b6cdc1055d78cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XSensitivity: 0.6
-  YSensitivity: 0.6
+  XSensitivity: 0.5
+  YSensitivity: 0.5
   clampVerticalRotation: 1
   MinimumX: -90
   MaximumX: 90
@@ -1869,6 +1880,76 @@ MonoBehaviour:
   smoothTime: 5
   lockCursor: 0
   lookInputAxis: {x: 0, y: 0}
+--- !u!114 &1977405444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777117164050306916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!95 &254093935
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777117164050306916}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 5a8f68e873d1f9b47b28169aecdb8b8e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 301beddf36972d84d8a078e96ed3bfd3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1676328243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777117164050306916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: isRunning
+  - Type: 4
+    SynchronizeType: 0
+    Name: isLocalPlayer
+  - Type: 1
+    SynchronizeType: 2
+    Name: horizontal
+  - Type: 1
+    SynchronizeType: 2
+    Name: vertical
+  - Type: 4
+    SynchronizeType: 0
+    Name: New Bool
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &5841570750963201075
 GameObject:
   m_ObjectHideFlags: 0
