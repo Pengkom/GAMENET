@@ -47,11 +47,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Dictionary<int, GameObject> playerListGameObjects;
     
 
-
     #region Unity Functions
         void Start()
         {
-            Application.targetFrameRate = 60;
+            //Application.targetFrameRate = 60;
             
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListGameObjects = new Dictionary<string, GameObject>();
