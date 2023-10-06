@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Fire
+  - Parent
   layers:
   - Default
   - TransparentFX

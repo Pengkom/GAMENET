@@ -16,11 +16,22 @@ public class Shooting : MonoBehaviourPunCallbacks
 
     private Animator animator;
 
+    private List<Transform> respawnPoints;
+
+    [Header("Kill Feed")]
+    public GameObject killFeedParent;
+    public GameObject feedTextPrefab;
+    public GameObject winText;
+
+    private int lives = 10;
+
     void Start()
     {
         health = startHealth;
         healthBar.fillAmount = health / startHealth;
-        animator = GetComponent<Animator>();    
+        animator = GetComponent<Animator>();
+        respawnPoints = GameManager.instance.respawnPoints;
+        killFeedParent = GameObject.FindGameObjectWithTag("Parent");
     }
 
     public void Fire()
@@ -49,8 +60,12 @@ public class Shooting : MonoBehaviourPunCallbacks
 
         if (health <= 0)
         {
-            //Die();
+            Die();
             Debug.Log(info.Sender.NickName + " killed " + info.photonView.Owner.NickName);
+            GameObject currentFeed = Instantiate(feedTextPrefab);
+            currentFeed.transform.SetParent(killFeedParent.transform);
+            currentFeed.GetComponent<Text>().text = info.Sender.NickName.ToString() + " killed " + info.photonView.Owner.NickName.ToString();
+            Destroy(currentFeed, 5.0f);
         }
     }
 
@@ -66,6 +81,7 @@ public class Shooting : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             animator.SetBool("isDead", true);
+            StartCoroutine(RespawnCountdown());
         }
     }
 
@@ -86,13 +102,13 @@ public class Shooting : MonoBehaviourPunCallbacks
         animator.SetBool("isDead", false);
         respawnText.GetComponent<Text>().text = "";
 
-        int randomPointX = Random.Range(-20, 20);
-        int randomPointZ = Random.Range(-20, 20);
+        int randInt = (int)Random.Range(0, respawnPoints.Count - 1);
 
-        this.transform.position = new Vector3(randomPointX, 0, randomPointZ);
+        this.transform.position = new Vector3(respawnPoints[randInt].position.x, 0, respawnPoints[randInt].position.z);
         transform.GetComponent<PlayerMovementController>().enabled = true;
 
         photonView.RPC("RegainHealth", RpcTarget.AllBuffered);
+        photonView.RPC("Score", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
@@ -100,5 +116,16 @@ public class Shooting : MonoBehaviourPunCallbacks
     {
         health = 100;
         healthBar.fillAmount = health / startHealth;
+    }
+
+    [PunRPC]
+    public void Score()
+    {
+        lives--;
+
+        if (lives == 0)
+        {
+            winText.SetActive(true);
+        }
     }
 }
