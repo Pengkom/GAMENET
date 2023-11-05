@@ -8,15 +8,25 @@ public class VehicleMovement : MonoBehaviour
     public float rotationSpeed = 200;
     public float currentSpeed = 0;
 
+    public bool isControlEnabled;
+
+    private void Start()
+    {
+        isControlEnabled = false;
+    }
+
     private void LateUpdate()
     {
-        float translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        float rotation = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
+        if (isControlEnabled)
+        {
+            float translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+            float rotation = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
 
-        transform.Translate(0, 0, translation);
-        currentSpeed = translation;
+            transform.Translate(0, 0, translation);
+            currentSpeed = translation;
 
-        transform.Rotate(0, rotation, 0);
+            transform.Rotate(0, rotation, 0);
+        }
     }
 
 }

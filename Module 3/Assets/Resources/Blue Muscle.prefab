@@ -346,6 +346,9 @@ GameObject:
   - component: {fileID: -2752371291907631384}
   - component: {fileID: 1026683175}
   - component: {fileID: -1205058658672091393}
+  - component: {fileID: -8932507217921407652}
+  - component: {fileID: 2314920690628638376}
+  - component: {fileID: 6814379972317694475}
   m_Layer: 0
   m_Name: Blue Muscle
   m_TagString: Untagged
@@ -412,6 +415,7 @@ MonoBehaviour:
   speed: 20
   rotationSpeed: 200
   currentSpeed: 0
+  isControlEnabled: 0
 --- !u!54 &-2752371291907631384
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -423,7 +427,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -457,6 +461,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
+--- !u!114 &-8932507217921407652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015083509360784621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d03aaf05597c1d499b67623a5666e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
+  timeToStartRace: 5
+--- !u!114 &2314920690628638376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015083509360784621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88c3e14ce340c843bf1c2b707fe70ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lapTriggers: []
+--- !u!65 &6814379972317694475
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015083509360784621}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.9849348, y: 2.1519504, z: 8.277058}
+  m_Center: {x: 0.17669725, y: 0.36047745, z: 0.042188644}
 --- !u!1 &6015083509360784623
 GameObject:
   m_ObjectHideFlags: 0

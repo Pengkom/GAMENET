@@ -346,6 +346,9 @@ GameObject:
   - component: {fileID: -7152023815430570168}
   - component: {fileID: 410114890}
   - component: {fileID: -6821047143909385869}
+  - component: {fileID: 8091943424709615066}
+  - component: {fileID: -495022634781946818}
+  - component: {fileID: 64414077580686095}
   m_Layer: 0
   m_Name: Black Muscle
   m_TagString: Untagged
@@ -412,6 +415,7 @@ MonoBehaviour:
   speed: 20
   rotationSpeed: 200
   currentSpeed: 0
+  isControlEnabled: 0
 --- !u!54 &-7152023815430570168
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -423,7 +427,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -457,6 +461,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
+--- !u!114 &8091943424709615066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736893238428541772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d03aaf05597c1d499b67623a5666e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
+  timeToStartRace: 5
+--- !u!114 &-495022634781946818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736893238428541772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88c3e14ce340c843bf1c2b707fe70ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lapTriggers: []
+--- !u!65 &64414077580686095
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736893238428541772}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0299778, y: 1.065351, z: 5.3784657}
+  m_Center: {x: -0.03535962, y: -0.032675624, z: -0.017011166}
 --- !u!1 &2736893238428541774
 GameObject:
   m_ObjectHideFlags: 0
