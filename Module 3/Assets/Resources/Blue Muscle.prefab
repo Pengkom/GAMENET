@@ -705,7 +705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 0}
-  timeToStartRace: 5
+  timeToStartRace: 3
 --- !u!114 &2314920690628638376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,8 +730,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.9849348, y: 1.5998276, z: 8.277058}
-  m_Center: {x: 0.17669725, y: 0.08441585, z: 0.042188644}
+  m_Size: {x: 3.9849348, y: 2.0104637, z: 8.277058}
+  m_Center: {x: 0.17669725, y: 0.2897339, z: 0.042188644}
 --- !u!114 &-5898948273646263835
 MonoBehaviour:
   m_ObjectHideFlags: 0

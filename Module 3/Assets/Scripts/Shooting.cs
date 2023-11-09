@@ -85,14 +85,13 @@ public class Shooting : MonoBehaviourPunCallbacks
     public void FireLaser()
     {
         RaycastHit hit;
-        Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.7f));
+        Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.6f));
 
         if (Physics.Raycast(ray, out hit, 200))
         {
             Debug.Log(hit.collider.gameObject.name);
 
-            //if (hit.collider.gameObject.CompareTag("Player") && !hit.collider.gameObject.GetComponent<PhotonView>().IsMine)
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("Player") && !hit.collider.gameObject.GetComponent<PhotonView>().IsMine)
             {
                 hit.collider.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.AllBuffered, 25);
             }
@@ -109,8 +108,9 @@ public class Shooting : MonoBehaviourPunCallbacks
     [PunRPC]
     public void TakeDamage(int damage, PhotonMessageInfo info)
     {
-        this.health -= damage;
-        Mathf.Clamp(health, 0, startHealth);
+        this.health  = this.health - damage;
+        health = Mathf.Clamp(health, 0, startHealth);
+
         Debug.Log(health);
 
         if (health <= 0)
@@ -121,10 +121,12 @@ public class Shooting : MonoBehaviourPunCallbacks
 
     public void Die()
     {
-        playerCount--;
+        Debug.Log("Called DIE");
+
         GetComponent<PlayerSetup>().camera.transform.parent = null;
         GetComponent<VehicleMovement>().enabled = false;
         GetComponent<BoxCollider>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
         this.enabled = false;
 
         string nickName = photonView.Owner.NickName;
@@ -144,7 +146,11 @@ public class Shooting : MonoBehaviourPunCallbacks
             Reliability = false
         };
 
+        //I can't debug what's wrong with my Win function and this thing
         PhotonNetwork.RaiseEvent((byte)RaiseEventsCodes.WhoDiedEventCode, data, raiseEventOptions, sendOptions);
+
+        playerCount--;
+        playerCount = Mathf.Clamp(playerCount, 1, 4);
 
         if (playerCount == 1)
         {
@@ -162,6 +168,7 @@ public class Shooting : MonoBehaviourPunCallbacks
             {
                 string nickName = sh.photonView.Owner.NickName;
                 int viewID = sh.photonView.ViewID;
+                Debug.Log("Win Called");
 
                 //event data
                 object[] data = new object[] { nickName, playerCount, viewID };

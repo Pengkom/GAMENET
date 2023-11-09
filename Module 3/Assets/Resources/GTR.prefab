@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 0}
-  timeToStartRace: 5
+  timeToStartRace: 3
 --- !u!114 &1783715007794074259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,8 +662,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1019382, y: 1.9274628, z: 7.497477}
-  m_Center: {x: -0.1321783, y: -0.11224374, z: -0.010192156}
+  m_Size: {x: 3.1019382, y: 2.4280882, z: 7.497477}
+  m_Center: {x: -0.1321783, y: 0.13806897, z: -0.010192156}
 --- !u!114 &-7151165816023442819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,6 +677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 6412029210464190395}
+  playerCount: 0
   startHealth: 100
   bulletPrefab: {fileID: 2549559319145203165, guid: 691e17bd2e86baf4581395dbd25d3910, type: 3}
   gunBarrel: {fileID: 5788387847294671009}

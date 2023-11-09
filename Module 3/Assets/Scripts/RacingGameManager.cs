@@ -47,6 +47,7 @@ public class RacingGameManager : MonoBehaviour
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                 Vector3 instantiatePosition = startingPositions[actorNumber - 1].position;
                 PhotonNetwork.Instantiate(vehiclePrefabs[(int)playerSelectionNumber].name, instantiatePosition, Quaternion.identity);
+                
             }
         }
 
