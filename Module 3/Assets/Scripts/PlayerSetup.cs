@@ -12,15 +12,16 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     void Start()
     {
         this.camera = transform.Find("Camera").GetComponent<Camera>();
+        GetComponent<VehicleMovement>().enabled = photonView.IsMine;
+        camera.enabled = photonView.IsMine;
+
         if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("rc"))
         {
-            GetComponent<VehicleMovement>().enabled = photonView.IsMine;
             GetComponent<LapController>().enabled = photonView.IsMine;
-            camera.enabled = photonView.IsMine;
         }
         else if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsValue("dr"))
         { 
-            
+            GetComponent<Shooting>().enabled = photonView.IsMine;
         }
     }
 }

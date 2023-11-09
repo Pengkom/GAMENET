@@ -8,7 +8,7 @@ public class CountdownManager : MonoBehaviourPunCallbacks
 {
     public Text timerText;
 
-    public float timeToStartRace = 5.0f;
+    public float timeToStartRace = 3.0f;
 
     // Start is called before the first frame update
     void Start()

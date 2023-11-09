@@ -17,12 +17,6 @@ public class PlayerSelection : MonoBehaviour
         ActivatePlayer(playerSelectionNumber);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void ActivatePlayer(int x)
     {
         foreach (GameObject go in SelectablePlayers)

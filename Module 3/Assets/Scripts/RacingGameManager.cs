@@ -35,6 +35,8 @@ public class RacingGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 60;
+
         if (PhotonNetwork.IsConnectedAndReady)
         {
             object playerSelectionNumber;
@@ -52,11 +54,5 @@ public class RacingGameManager : MonoBehaviour
         {
             go.SetActive(false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
