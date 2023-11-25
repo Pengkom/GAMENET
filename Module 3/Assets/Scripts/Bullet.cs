@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class Bullet : MonoBehaviourPunCallbacks
 {
-    //OFF IN EDITOR
+    //THIS IS OFF IN EDITOR ==================================
     private bool hit = false;
 
     private void Start()
