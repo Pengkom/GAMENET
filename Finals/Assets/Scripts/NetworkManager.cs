@@ -7,6 +7,7 @@ using Photon.Realtime;
 using Unity.VisualScripting;
 using System;
 using Random = UnityEngine.Random;
+using UnityEngine.Windows;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -79,12 +80,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         ActivatePanel(CreatingRoomInfoUIPanel.name);
 
-        WinPoints = Convert.ToInt32(PointsToWinInputField.text);
+        int.TryParse(PointsToWinInputField.text, out WinPoints);
 
-        if (WinPoints == 0)
-        {
-            WinPoints = 10000;
-        }
+        if (WinPoints == 0) WinPoints = 50;
 
         string roomName = RoomNameInputField.text;
 
@@ -207,12 +205,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message) //====
     {
-        WinPoints = Convert.ToInt32(PointsToWinInputField.text);
+        int.TryParse(PointsToWinInputField.text, out WinPoints);
 
-        if (WinPoints == 0)
-        {
-            WinPoints = 10000;
-        }
+        if (WinPoints == 0) WinPoints = 50;
 
         string roomName = RoomNameInputField.text;
 

@@ -8,11 +8,10 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
 {
     public Camera camera;
 
-    // Start is called before the first frame update
     void Start()
     {
-        this.camera = transform.Find("Camera").GetComponent<Camera>();
-        //GetComponent<VehicleMovement>().enabled = photonView.IsMine;
+        this.GetComponent<PlayerMovement>().enabled = photonView.IsMine;
+        this.GetComponent<NutritionManager>().enabled = photonView.IsMine;
         camera.enabled = photonView.IsMine;
     }
 }
