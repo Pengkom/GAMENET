@@ -11,15 +11,19 @@ using Random = UnityEngine.Random;
 using Photon.Pun.Demo.Cockpit;
 using UnityEngine.Tilemaps;
 using Unity.VisualScripting;
+using Photon.Pun.UtilityScripts;
+using ExitGames.Client.Photon;
+//Why is there so many wtf
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance = null;
 
-    public GameObject[] finisherTextUI;
-
     public int scoreToWin = 0;
     public GameObject playerPrefab;
+    public List<Player> playerList = new List<Player>();
+    public GameObject[] scoreBoard;
+    public GameObject winDisplay;
 
     [Header("Map Values")]
     public int initFoodToSpawn;
@@ -28,6 +32,52 @@ public class GameManager : MonoBehaviour
     private Tilemap mapTilemap;
     private Vector3 minWorldPos;
     private Vector3 maxWorldPos;
+
+    public enum RaiseEventsCode
+    {
+        UpdateScoreEventCode = 0
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= OnEvent;
+    }
+
+    private void OnEvent(EventData photonEvent)
+    {
+        if (photonEvent.Code == (byte)RaiseEventsCode.UpdateScoreEventCode)
+        {
+            playerList.Clear();
+
+            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                Player tempPlayer;
+                PhotonNetwork.CurrentRoom.Players.TryGetValue(i+1, out tempPlayer); //i+1 took too long to debug :D
+                if (tempPlayer != null)
+                {
+                    playerList.Add(tempPlayer);
+                    int score = playerList[i].GetScore();
+                    scoreBoard[i].SetActive(true);
+
+                    //Why does it change both index 0 and 1
+                    scoreBoard[i].GetComponent<Text>().text = 
+                        score + "/" + scoreToWin + " " + playerList[i].NickName;
+
+                    if (score >= scoreToWin)
+                    {
+                        winDisplay.SetActive(true);
+                        winDisplay.GetComponent<Text>().text = playerList[i].NickName + " has Won!";
+                        Time.timeScale = 0;
+                    }
+                }
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -41,9 +91,8 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-    }   
+    }
 
-    // Start is called before the first frame update
     void Start()
     {
         mapTilemap = map.GetComponent<Tilemap>();
@@ -55,20 +104,23 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue("WinPoints", out tempScore);
         scoreToWin = tempScore;
 
+        foreach (GameObject sb in scoreBoard)
+        {
+            sb.SetActive(false);
+        }
+        winDisplay.SetActive(false);
+
+        // Main Logic =======================================================================================
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, GenerateSpawnPos(), Quaternion.identity);
-
-            int foodToSpawn = initFoodToSpawn * PhotonNetwork.CurrentRoom.MaxPlayers;
+            int foodToSpawn = initFoodToSpawn * PhotonNetwork.CurrentRoom.PlayerCount;
             for (int i = 0; i < foodToSpawn; i++)
             {
                 SpawnFood();
             }
-        }
 
-        foreach (GameObject go in finisherTextUI)
-        {
-            go.SetActive(false);
+            PhotonNetwork.Instantiate(playerPrefab.name, GenerateSpawnPos(), Quaternion.identity);
+
         }
 
     }
@@ -92,4 +144,24 @@ public class GameManager : MonoBehaviour
 
         return new Vector3(generateX, generateY, 0);
     }
+
+    public void UpdateScoreBoard()
+    {
+        int o = 0;
+        object[] data = new object[] { o };
+
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+        {
+            Receivers = ReceiverGroup.All,
+            CachingOption = EventCaching.AddToRoomCache
+        };
+
+        SendOptions sendOptions = new SendOptions
+        {
+            Reliability = false
+        };
+
+        PhotonNetwork.RaiseEvent((byte)RaiseEventsCode.UpdateScoreEventCode, data, raiseEventOptions, sendOptions);
+    }
+
 }

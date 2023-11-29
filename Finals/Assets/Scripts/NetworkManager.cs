@@ -81,7 +81,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ActivatePanel(CreatingRoomInfoUIPanel.name);
 
         int.TryParse(PointsToWinInputField.text, out WinPoints);
-
         if (WinPoints == 0) WinPoints = 50;
 
         string roomName = RoomNameInputField.text;
@@ -101,9 +100,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         roomOptions.CustomRoomProperties = customRoomProperties;
         PhotonNetwork.CreateRoom(roomName, roomOptions);
 
-    } //====
+    } 
 
-    public void OnJoinRandomRoomButtonClicked() //====
+    public void OnJoinRandomRoomButtonClicked() 
     {
         PhotonNetwork.JoinRandomRoom();
     }
@@ -120,7 +119,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void OnStartGameButtonClicked()
     {
-        PhotonNetwork.LoadLevel("GameScene");  //========================================================================
+        PhotonNetwork.LoadLevel("GameScene");  
     }
 
     #endregion
@@ -133,7 +132,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ActivatePanel(GameOptionsUIPanel.name);
     }
 
-    public override void OnJoinedRoom() //====
+    public override void OnJoinedRoom() 
     {
         ActivatePanel(InsideRoomUIPanel.name);
 
@@ -165,7 +164,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         StartGameButton.SetActive(false);
     }
 
-    public override void OnPlayerEnteredRoom(Player newPlayer) //====
+    public override void OnPlayerEnteredRoom(Player newPlayer) 
     {
         GameObject playerListItem = Instantiate(PlayerListPrefab);
         playerListItem.transform.SetParent(PlayerListParent.transform);
@@ -181,7 +180,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         StartGameButton.SetActive(CheckAllPlayerReady());
     }
 
-    public override void OnPlayerLeftRoom(Player otherPlayer) //====
+    public override void OnPlayerLeftRoom(Player otherPlayer) 
     {
         Destroy(playerListGameObjects[otherPlayer.ActorNumber].gameObject);
         playerListGameObjects.Remove(otherPlayer.ActorNumber);
@@ -190,7 +189,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
     }
 
-    public override void OnLeftRoom() //====
+    public override void OnLeftRoom() 
     {
         ActivatePanel(GameOptionsUIPanel.name);
 
@@ -203,10 +202,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         playerListGameObjects = null;
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message) //====
+    public override void OnJoinRandomFailed(short returnCode, string message) 
     {
         int.TryParse(PointsToWinInputField.text, out WinPoints);
-
         if (WinPoints == 0) WinPoints = 50;
 
         string roomName = RoomNameInputField.text;
@@ -291,7 +289,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             }
         }
         return true;
-    } //====
+    } 
 
     #endregion
 }

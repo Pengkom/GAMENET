@@ -165,7 +165,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 12
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: 5543a854093739a409735c946faea042, type: 3}
   m_Color: {r: 1, g: 0, b: 0.85098076, a: 1}
   m_FlipX: 0
@@ -283,6 +283,7 @@ MonoBehaviour:
   currentSize: 1
   nutritionValue: 0
   points: 0
+  circleCollider: {fileID: 8963267166690611168}
   gameStart: 0
 --- !u!114 &3233834523635717623
 MonoBehaviour:

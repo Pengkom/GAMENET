@@ -45,7 +45,7 @@ public class LapController : MonoBehaviourPunCallbacks
 
             if (viewID == photonView.ViewID)
             {
-                orderUIText.GetComponent<Text>().text = finishOrder + " " + nickNameOfFinishedPlayer + "(YOU)";
+                orderUIText.GetComponent<Text>().text = finishOrder + " " + nickNameOfFinishedPlayer + " (YOU)";
                 orderUIText.GetComponent<Text>().color = Color.green;
             }
             else
@@ -53,7 +53,7 @@ public class LapController : MonoBehaviourPunCallbacks
                 orderUIText.GetComponent<Text>().text = finishOrder + " " + nickNameOfFinishedPlayer;
             }           
         }
-
+        
     }
 
     // Start is called before the first frame update
