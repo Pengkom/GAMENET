@@ -6,6 +6,7 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using ExitGames.Client.Photon;
 using static GameManager;
+using Photon.Pun.Demo.PunBasics;
 
 public class NutritionManager : MonoBehaviourPunCallbacks
 {
@@ -61,14 +62,14 @@ public class NutritionManager : MonoBehaviourPunCallbacks
 
             if (collider.CompareTag("Player"))
             {
-                if (collider.GetComponent<NutritionManager>().nutritionValue < nutritionValue)
+                if (collider.GetComponent<NutritionManager>().nutritionValue < nutritionValue 
+                    && collider.GetComponent<PlayerMovement>().IsAlive)
                 {
                     currentSize *= (collider.GetComponent<NutritionManager>().nutritionValue * 0.1f);
 
                     photonView.RPC("EatPlayerLogic", RpcTarget.AllBuffered, collider.gameObject.GetPhotonView().ViewID);
-                    GameManager.instance.ResetPos(collider.gameObject);
 
-                    StartCoroutine(CallResetPlayer(collider.gameObject));
+                    
                 }
             }
         }
@@ -81,7 +82,7 @@ public class NutritionManager : MonoBehaviourPunCallbacks
 
         currentSize *= 1.02f;
         nutritionValue += 1;
-        points += 2;
+        points += 1;
 
         PhotonNetwork.LocalPlayer.SetScore(points);
         CallUpdateScore();
@@ -100,29 +101,36 @@ public class NutritionManager : MonoBehaviourPunCallbacks
         player.GetComponent<PlayerMovement>().IsAlive = false;
         player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<CircleCollider2D>().enabled = false;
+        player.GetComponent<NutritionManager>().currentSize = 1f;
+        player.GetComponent<NutritionManager>().nutritionValue = 1f;
+
+        player.gameObject.transform.localScale = Vector3.one;
+
+        StartCoroutine(CallResetPlayer(playerID));
 
         PhotonNetwork.LocalPlayer.SetScore(points);
         CallUpdateScore();
     }
 
-    IEnumerator CallResetPlayer(GameObject player)
+    IEnumerator CallResetPlayer(int playerID)
     {
         yield return new WaitForSeconds(5);
 
-        photonView.RPC("ResetPlayer", RpcTarget.AllBuffered, player);
+        photonView.RPC("ResetPlayer", RpcTarget.AllBuffered, playerID);
 
     }
 
     [PunRPC]
-    public void ResetPlayer(GameObject player)
+    public void ResetPlayer(int playerID)
     {
+        GameObject player = PhotonView.Find(playerID).gameObject;
+
         player.GetComponent<PlayerMovement>().IsAlive = true;
         player.GetComponent<SpriteRenderer>().enabled = true;
         player.GetComponent<CircleCollider2D>().enabled = true;
-        player.GetComponent<NutritionManager>().currentSize = 1f;
-        player.GetComponent<NutritionManager>().nutritionValue = 1f;
-        
-        player.gameObject.transform.localScale = Vector3.one;
+
+        GameManager.instance.ResetPos(player);
+
     }
 
     private void CallUpdateScore()

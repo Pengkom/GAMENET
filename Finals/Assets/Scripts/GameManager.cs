@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         gameObject.transform.position = GenerateSpawnPos();
     }
 
-    private Vector3 GenerateSpawnPos()
+    public Vector3 GenerateSpawnPos()
     {
         float generateX = Random.Range(minWorldPos.x, maxWorldPos.x);
         float generateY = Random.Range(minWorldPos.y, maxWorldPos.y);

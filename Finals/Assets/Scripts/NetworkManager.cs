@@ -41,7 +41,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     private Dictionary<int, GameObject> playerListGameObjects;
 
     #region Unity Methods
-    // Start is called before the first frame update
     void Start()
     {
         ActivatePanel(LoginUIPanel.name);
@@ -82,6 +81,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         int.TryParse(PointsToWinInputField.text, out WinPoints);
         if (WinPoints == 0) WinPoints = 50;
+        if (WinPoints >= 400) WinPoints = 400;
 
         string roomName = RoomNameInputField.text;
 
@@ -206,6 +206,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         int.TryParse(PointsToWinInputField.text, out WinPoints);
         if (WinPoints == 0) WinPoints = 50;
+        if (WinPoints >= 400) WinPoints = 400;
 
         string roomName = RoomNameInputField.text;
 
