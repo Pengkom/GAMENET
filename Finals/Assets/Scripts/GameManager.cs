@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
 
         DontDestroyOnLoad(gameObject);
-    }
+    } //GameManager.instance
 
     void Start()
     {
